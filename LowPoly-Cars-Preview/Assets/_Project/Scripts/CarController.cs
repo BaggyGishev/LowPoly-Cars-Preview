@@ -2,73 +2,37 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    //fix rotation of car
-    //fix gravity of car
+    [Header("General")]
+    [SerializeField] private Rigidbody motorSphereRB;
 
-    //raycast
+    [Header("Speeds")]
+    [SerializeField] private float fwdSpeed;
+    [SerializeField] private float revSpeed;
+    [SerializeField] private float turnSpeed;
 
-    private float moveInput;
-    private float turnInput;
-    private bool isCarGrounded;
+    float _vInput;
+    float _hInput;
 
-    public float airDrag;
-    public float groundDrag;
-
-    public float fwdSpeed;
-    public float revSpeed;
-    public float turnSpeed;
-    public LayerMask GroundLayer;
-
-    public Rigidbody sphereRB;
-
-    void Start()
+    private void Start()
     {
-        //detach rigidbody from car
-        sphereRB.transform.parent = null;
+        motorSphereRB.transform.parent = null;
     }
 
-    void Update()
+    private void Update()
     {
-        moveInput = Input.GetAxisRaw("Vertical");
-        turnInput = Input.GetAxisRaw("Horizontal");
-        moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
+        _vInput = Input.GetAxisRaw("Vertical");
+        _hInput = Input.GetAxisRaw("Horizontal");
 
-        //set cars position to sphere
-        transform.position = sphereRB.transform.position;
+        _vInput *= _vInput > 0 ? fwdSpeed : revSpeed;
 
-        //set cars rotation
-        float newRotation = turnInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
-        transform.Rotate(0, newRotation, 0, Space.World);
+        float yRot = _hInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+        transform.Rotate(0f, yRot, 0f, Space.World);
 
-        // raycast ground check
-        RaycastHit hit;
-        int groundLayer = 1;
-        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, groundLayer);
-
-        transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-
-        if (isCarGrounded)
-        {
-            sphereRB.drag = groundDrag;
-        }
-        else
-        {
-            sphereRB.drag = airDrag;
-        }
+        transform.position = motorSphereRB.position;
     }
 
     private void FixedUpdate()
     {
-        if (isCarGrounded)
-        {
-            //move car
-            sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
-        }
-        else
-        {
-            //add extra gravity
-            sphereRB.AddForce(transform.up * -30);
-
-        }
+        motorSphereRB.AddForce(transform.forward * _vInput, ForceMode.Acceleration);
     }
 }

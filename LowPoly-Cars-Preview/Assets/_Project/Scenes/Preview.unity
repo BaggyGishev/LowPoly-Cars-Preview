@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11255925}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.85001, y: 1.4, z: -13.14}
+  m_LocalPosition: {x: 28.85001, y: 1.4, z: -24.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 46802818}
@@ -168,15 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd474aab84055a478b3f9f10ebe0867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airDrag: 0.1
-  groundDrag: 4
-  fwdSpeed: 5
-  revSpeed: 2
-  turnSpeed: 25
-  GroundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  sphereRB: {fileID: 46802822}
+  motorSphereRB: {fileID: 46802822}
+  fwdSpeed: 175
+  revSpeed: 100
+  turnSpeed: 90
 --- !u!1 &46802817
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +810,7 @@ GameObject:
   - component: {fileID: 543450653183573692}
   - component: {fileID: 3469287836966646041}
   - component: {fileID: 1711813856191972819}
+  - component: {fileID: 919132148639048711}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -822,6 +818,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &919132148639048711
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148639048710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2441658414131813105, guid: e23e3a66ce13f9945bde2976d2da6364, type: 3}
 --- !u!23 &1002962900741030144
 MeshRenderer:
   m_ObjectHideFlags: 0
